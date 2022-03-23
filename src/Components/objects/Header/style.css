@@ -1,0 +1,16 @@
+header{
+    display:flex;
+    flex-wrap: wrap;
+    background-color: var(--header-color);
+    font-family: 'Roboto';
+    font-weight: 400;
+    font-size: 34px;
+    align-items: center;
+    justify-content: center;
+    color: var(--assets-color);
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height:67px;
+}
