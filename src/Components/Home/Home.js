@@ -7,7 +7,6 @@ import './style.css';
 function Home(){
     const [movie, setMovie] = useState({});
     useEffect(() => {//TODO Tratar erros do catch
-        console.log('oi');
         const fetchMovies = async() =>{
             const {data} = await axios.get('https://mock-api.driven.com.br/api/v5/cineflex/movies');
             setMovie(data);

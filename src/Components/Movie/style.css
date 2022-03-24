@@ -1,0 +1,39 @@
+.sessions{
+    position:absolute;
+    padding-top: 112px;
+    top: 67px;
+    left: 5vw;
+    width: 95vw;
+    bottom: 117px;
+    overflow: scroll;
+    overflow-x: hidden;
+}
+.sessions .title{
+    position:absolute;
+    width: 100%;
+    top:0;
+    left: 0;
+}
+.session{
+    width:80vw;
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 23px;
+    letter-spacing: 0.02em;
+    margin-bottom: 22px;
+    color: var(--black);
+}
+.session button{
+    width: 83px;
+    height: 43px;
+    margin-right: 20px;
+    background: #E8833A;
+    border-radius: 5px;
+    color: #FFFFFF;
+    font-size: 18px;
+}
+.session .date{
+    margin-bottom: 22px;
+}

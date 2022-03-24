@@ -1,0 +1,38 @@
+footer{
+    position:fixed;
+    bottom: 0;
+    left:0;
+    height: 117px;
+    width: 100%;
+    background-color: var(--footer-color);
+}
+.footer{
+    position:absolute;
+    left: 10px;
+    height: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: start;
+    align-items: center;
+}
+footer .footerPoster{
+    width: 64px;
+    height: 89px;
+    margin-right: 14px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #FFFFFF;
+}
+
+footer .footerPoster img{
+    width: 48px;
+    height: 72px;
+}
+footer .data{
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    color: var(--black);
+}
