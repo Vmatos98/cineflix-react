@@ -1,12 +1,21 @@
-import Home from "../Home/Home.js"
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+
 import Header from '../objects/Header/Header.js';
+import Home from "../Home/Home.js"
+import Movie from '../Movie/index.js';
 import './style.css';
+import { matchPath } from 'react-router-dom';
 
 function App() {
     return (
         <>
-        <Header/>
-        <Home />
+        <Router>
+            <Header/>
+            <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/movie/:id" element={<Movie/>} />
+            </Routes>
+        </Router>
         </>
     )
 }
