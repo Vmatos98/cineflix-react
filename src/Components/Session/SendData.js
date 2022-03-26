@@ -1,10 +1,12 @@
-import {useEffect, useState} from "react";
+import { useState} from "react";
 import { useNavigate } from "react-router-dom";
 import styled from 'styled-components';
 import axios from "axios";
 
+import {GetData} from '../Finish/Finish.js';
+
 export function SendData(props){
-    const {data} = props;
+    const {data, title, date} = props;
     const [name, setName] = useState("");
     const [cpf, setCpf] = useState("");
     // const [dataNumber, setDataNumber] = useState([]);
@@ -13,7 +15,7 @@ export function SendData(props){
     const navigate = useNavigate();
     const URL = "https://mock-api.driven.com.br/api/v5/cineflex/seats/book-many";
     
-
+    
     function clear(){
         setName("");
         setCpf("");
@@ -30,7 +32,7 @@ export function SendData(props){
     }
     function send_data(e){
         e.preventDefault();
-        
+        GetData(title, date, dataNumber, name, cpf);
         Object.keys(data).map(item=>data[item].value?dataNumber.push(data[item].value):null);
         Object.keys(data).map(item=>data[item].id?dataId.push(data[item].id):null);
 
@@ -41,10 +43,9 @@ export function SendData(props){
                 cpf: cpf
             })
             promise.then(response => {
-                alert("Foi enviado com sucesso e alegria!");
-                //navigate("/"); // window.href.location = "/"
+                navigate("/sucesso"); 
             });
-            promise.catch(err => alert("deu ruim :("));
+            promise.catch(err => alert(err));
             
         
         console.log(name, cpf);

@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from 'react';
-import { useParams, Link } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import styled from 'styled-components';
 import axios from 'axios';
 
@@ -8,11 +8,11 @@ import {Footer} from '../objects/Footer/index.js';
 import {SendData} from './SendData';
 
 import "./style.css";
-
 function Session(){
     const { id } = useParams();
     const [seats, setSeats] = useState({});
     const [movie, setMovie] = useState({});
+    const [status, setStatus] = useState(false);
     useEffect(() => {
         const getData = async() =>{
             const {data} = await axios.get(`https://mock-api.driven.com.br/api/v5/cineflex/showtimes/${id}/seats`);
@@ -20,18 +20,22 @@ function Session(){
         }
         getData();
     }, []);
-    // console.log(movie)
+    console.log(movie)
+    
     return movie.seats? (
         <>
         <section className="purchase">
-            <h1 className="title">Selecione o(s) assentos</h1>
+            {status?<h1 className="title">Selecione o(s) assentos</h1>:<h1 className="title">Sessão esgotada</h1>}
+            {/* <h1 className="title">Selecione o(s) assentos</h1> */}
             <section className="seats">
                 {
-                movie.seats.map(item => <Seat available={item.isAvailable} number={item.name} id={item.id} callback={(value, info, mode)=>{
+                    
+                movie.seats.map(item => <Seat available={item.isAvailable} number={item.name} id={item.id} status={(i)=>{if(i)setStatus(true)}} callback={(value, info, mode)=>{
                     mode? 
                     setSeats({...seats,[value]: {'value':value, 'id': info}}) :
                     setSeats({...seats,[value]: [delete [value]]});
                 }
+                
                 } />
                 )
                 
@@ -65,11 +69,13 @@ function Session(){
                         
                     </ul>
                 </div>
-                <SendData data={seats}/>
+                <SendData data={seats} title={movie.movie.title} date={`${movie.day.date}  ${movie.name}`}/>
             </section>
             
         </section>
         <Footer poster={movie.movie.posterURL} title={movie.movie.title} date={`${movie.day.weekday} - ${movie.name}`} />
+        <Hiden>
+        </Hiden>
         </>
     ):(
         <div className="loading">
@@ -80,9 +86,9 @@ function Session(){
 
 function Seat(props){
     const [selected, setSelected] = useState(false);
-    const{ id, available, number, callback}= props;
+    const{ id, available, number, callback, status}= props;
     const classCss= `seat ${available? selected? "selected":"available": "unavailable"}`
-
+    if(available) status(true);
     const seat = `${number<10? "0":""}${number}`
     return(
         <div className={classCss} onClick={()=>{
@@ -138,4 +144,7 @@ const Unavailable = styled.div `
     background: #FBE192;
     width:26px;
     height:26px;
+`;
+const Hiden= styled.div `
+display: none;
 `;

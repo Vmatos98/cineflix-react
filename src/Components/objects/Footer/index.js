@@ -1,4 +1,4 @@
-
+// eslint-disable-next-line
 import "./style.css"
 
 export function Footer(props) {
