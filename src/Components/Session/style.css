@@ -66,3 +66,7 @@ ul li{
     padding-right: 4px;
     font-size: 16px;
 }
+
+header ion-icon{
+    display:inline-block;
+}

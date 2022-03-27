@@ -6,10 +6,14 @@ import axios from 'axios';
 import './style.css';
 function Home(){
     const [movie, setMovie] = useState({});
-    useEffect(() => {//TODO Tratar erros do catch
+    useEffect(() => {
         const fetchMovies = async() =>{
-            const {data} = await axios.get('https://mock-api.driven.com.br/api/v5/cineflex/movies');
-            setMovie(data);
+            try {
+                const {data} = await axios.get(`https://mock-api.driven.com.br/api/v5/cineflex/movies`);
+                setMovie(data);
+            }catch (error) {
+                alert("Ocorreu um error ao carregar os dados");
+            }
         }
         fetchMovies();
     }, []);
@@ -23,7 +27,7 @@ function Home(){
         </section>
     ):(
         <div className="loading">
-            <img src="https://i.pinimg.com/originals/2b/02/15/2b02159fee58d573c079ad5212d56b63.gif" alt="Carregando dados" />
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/29/Loader.gif/480px-Loader.gif" alt="Carregando dados" />
         </div>
     )
 }

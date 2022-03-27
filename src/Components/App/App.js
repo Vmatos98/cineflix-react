@@ -12,7 +12,7 @@ function App() {
     return (
         <>
         <Router>
-            <Header/>
+            <Header visible={false}/>
             <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/movie/:id" element={<Movie/>} />

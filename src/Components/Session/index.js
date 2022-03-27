@@ -1,22 +1,28 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from 'react';
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import styled from 'styled-components';
 import axios from 'axios';
 
+import Header from '../objects/Header/Header.js';
 import {Footer} from '../objects/Footer/index.js';
 import {SendData} from './SendData';
 
 import "./style.css";
 function Session(){
+    const navigate = useNavigate();
     const { id } = useParams();
     const [seats, setSeats] = useState({});
     const [movie, setMovie] = useState({});
     const [status, setStatus] = useState(false);
     useEffect(() => {
         const getData = async() =>{
-            const {data} = await axios.get(`https://mock-api.driven.com.br/api/v5/cineflex/showtimes/${id}/seats`);
-            setMovie(data);
+            try {
+                const {data} = await axios.get(`https://mock-api.driven.com.br/api/v5/cineflex/showtimes/${id}/seats`);
+                setMovie(data);
+            }catch (error) {
+                alert("Ocorreu um error ao carregar os dados");
+            }
         }
         getData();
     }, []);
@@ -24,10 +30,15 @@ function Session(){
     
     return movie.seats? (
         <>
+        <Header visible={true}/>
         <section className="purchase">
-            {status?<h1 className="title">Selecione o(s) assentos</h1>:<h1 className="title">Sessão esgotada</h1>}
+            <div className = "header">
+                <ion-icon onClick={()=>{navigate(-1)}} name="chevron-back-circle"></ion-icon>
+                {status?<h1 className="title">Selecione o(s) assentos</h1>:<h1 className="title">Sessão esgotada</h1>}
             {/* <h1 className="title">Selecione o(s) assentos</h1> */}
+            </div>
             <section className="seats">
+            
                 {
                     
                 movie.seats.map(item => <Seat available={item.isAvailable} number={item.name} id={item.id} status={(i)=>{if(i)setStatus(true)}} callback={(value, info, mode)=>{
@@ -79,7 +90,7 @@ function Session(){
         </>
     ):(
         <div className="loading">
-            <img src="https://i.pinimg.com/originals/2b/02/15/2b02159fee58d573c079ad5212d56b63.gif" alt="Carregando dados" />
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/29/Loader.gif/480px-Loader.gif" alt="Carregando dados" />
         </div>
     )
 }
