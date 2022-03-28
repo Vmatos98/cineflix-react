@@ -53,10 +53,6 @@ export function GetData(title, date, seat, name, cpf){
     data.name = name;
     data.cpf = cpf;
 }
-function Return(){
-    const navigate = useNavigate();
-    navigate("/")
-}
 
 const Title= styled.div `
     position: absolute;
