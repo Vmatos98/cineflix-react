@@ -1,4 +1,4 @@
-
+import { useEffect } from 'react';
 import { Link, useNavigate } from "react-router-dom";
 import styled from 'styled-components';
 
@@ -7,6 +7,11 @@ let data= {};
 let seats = [];
 function Finish(){
     const navigate = useNavigate();
+    useEffect(() => {
+        if (seats.length===0){
+            navigate("/")   
+        }
+    },[])
     return seats.length>0? (
         <>
         <Title>
@@ -33,7 +38,6 @@ function Finish(){
         (
             <Title>
                 <h1>Nada para ver aqui</h1>
-                {navigate("/")}
             </Title>
         )
 
@@ -49,7 +53,10 @@ export function GetData(title, date, seat, name, cpf){
     data.name = name;
     data.cpf = cpf;
 }
-
+function Return(){
+    const navigate = useNavigate();
+    navigate("/")
+}
 
 const Title= styled.div `
     position: absolute;
